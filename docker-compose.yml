@@ -1,12 +1,20 @@
-version: '2'
+version: '3'
+
+networks:
+  redis-cluster-net:
+    driver: overlay
+
 services:
-  redis-cluster:
+  redis-cluster-all-in-one:
+    image: zen12/redis-cluster:all-in-one
+    networks:
+      - redis-cluster-net
     environment:
      IP: ${REDIS_CLUSTER_IP}
-    build:
-      context: .
-      args:
-        redis_version: '4.0.9'
+    # build:
+    #   context: .
+    #   args:
+    #     redis_version: '4.0.9'
     hostname: server
     ports:
       - '7000-7007:7000-7007'
